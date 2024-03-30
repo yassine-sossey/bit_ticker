@@ -7,19 +7,24 @@ class PriceScreen extends StatefulWidget {
   const PriceScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PriceScreenState createState() => _PriceScreenState();
 }
 
 class _PriceScreenState extends State<PriceScreen> {
+  //current curency choosed in dropDown button by user
   String dropDownvalue = currenciesList.first;
+
   CoinData coinData = CoinData(); // Create instance of CoinData
-  Map btcAllRates = {};
-  Map ethAllRates = {};
-  Map ltcAllRates = {};
+  //rates of each crypto format {'EUR': rate, "USD" : rate}
+  Map<String, double> btcAllRates = {};
+  Map<String, double> ethAllRates = {};
+  Map<String, double> ltcAllRates = {};
 
   @override
   void initState() {
     super.initState();
+    //fetch data for once
     getMetadata();
   }
 
@@ -52,7 +57,7 @@ class _PriceScreenState extends State<PriceScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('🤑 Coin Ticker'),
+        title: const Text(' Coin Ticker'),
         centerTitle: true,
       ),
       body: Column(
@@ -130,9 +135,8 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: const EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: Platform.isAndroid
-                ? iosCupertinoPicker()
-                : androidDropDownButton(),
+            child:
+                Platform.isIOS ? iosCupertinoPicker() : androidDropDownButton(),
           ),
         ],
       ),
